@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>mission-5-1</title>
+        </head>
+        <body>
+    <from action=""method="post">
+        <input type="text"name="toukobango"placeholder="投稿番号">
+        <input type="text"name="name"placeholder="名前">
+        <input type="text"name="comment"placeholder="コメント">
+        <input type="text"name="toukonitiji"placeholder="投稿日時">
+        <input type="text"name="password"placeholder="パスワード">
+        <input type="submit"name="submit">
+        <input type="submit"name="delbth"value="削除">
+        <input type="submit"name="edit"value="編集">
+    </form>
+
+    <?php
+    $name=$_POST["name"];
+    //名前フォーム
+    $comment=$_POST["comment"];
+    //コメントフォーム
+    $delete=$_POST["delete"];
+    //削除フォーム
+    $edit=$_POST["edit"];
+    //編集フォーム
+    $date=date('Y年m月d日 H時i分s秒');
+    //日付
+    $filename="mission5-2.html";
+    //テキストファイル
+
+    //投稿機能開始
+    
+    if(empty($name)==false&&empty($comment)==false){
+    //もし$nameと$commentが空じゃなかったら
+    $ret_array=file($filename);
+    //テキストファイルを読み込み
+    $fp=fopen($filename,'a+');
+    //読み込みと追加書き込み
+    fwrite($fp,$postnumber.'<>'.PHP_EOL);
+    //書き込み
+    fwrite($fp,filter_input(INPUT_POST,'name').'<>'.PHP_EOL);
+    fwrite($fp,filter_input(INPUT_POST,'comment').'<>'.PHP_EOL);
+    fwrite($fp,date('Y年m月d日 H時i分s秒').PHP_EOL);
+    flock($fp,LOCK_UN);
+    //投稿番号、名前、コメント、日付
+    fclose($fp);
+    }
+    //投稿機能終了
+
+    //削除機能開始
+    
+    if(empty($delbth)==false){
+    //もし$delbthが空じゃなかったら
+    $ret_array=file($filename);
+    //テキストファイルを読み込み
+    $fp=fopen($filename,'w');
+    //上書き書き込み
+    for($i=1;$i<5;$i++){
+    echo $i;
+    }
+    if($i==$delbth-1){
+    }
+    if($delbth[0]==$delbth&&delbth[4]==$delpass){
+    fwrite($fp,"消去しました\n");
+    }else{
+    fwrite($fp,$delCon[$i]);
+    }
+    fwrite($fp,$postnumber.'<>'.PHP_EOL);
+    fwrite($fp,filter_input(INPUT_POST,'delbth').'<>'.PHP_EOL);
+    fwrite($fp,date('Y年m月d日 H時i分s秒').PHP_EOL);
+    //書き込み
+    flock($fp,LOCK_UN);
+    fclose($fp);
+    }
+    //削除機能終了
+
+
+    //編集選択開始
+    
+    if(empty($edit)==false){
+    //$editが空じゃなかったら
+    $ret_array=file($filename);
+    //ファイル読み込み
+    for($i=0;$i<count($ret_array);$i++){
+    //ループ処理
+    $ex=explode("<>",$ret_array[$i]);
+    if($i==$edit-1){
+    //投稿番号と編集番号が一致したら
+    $editbango=$ex[0];
+    $editbango=$ex[1];
+    $editbango=$ex[2];
+    }
+    }
+    $eded=$editnumber."<>";
+    $editname."<>".$editcomment;
+    }
+    
+    //編集選択終わり
+
+
+    //編集機能開始
+    if(empty($edit)==false&&isset($name)==false&&isset($comment)==false){
+    }
+    //削除番号と$nameと$commentが空じゃなかったら
+    $editile=file($filename);
+    //ファイル読み込み
+    $fp=fopen($filename,"w");
+    //上書き込み書き込み
+    for($i=0;$i<count($edit);$i++);
+    //ループ処理
+    $d=$edit===false?:count($edit)+1;
+    //編集対象番号の要素の数を数える
+    $a=$d."<>"."name"."<>"."comment";
+    if($edit[0]==$edit&&$edit[4]==$editpass){
+    //両方一致すれば削除
+    fwrite($fp,"消去しました\n");
+    }else{
+    //どちらかでも一致しなければ元の行を残す
+    fwrite($fp,$editCon[$i]);
+    }
+    fwrite($fp,$postnumber.'<>'.PHP_EOL);
+    fwrite($fp,filter_input(INPUT_POST,'edit').'<>'.PHP_EOL);
+    fwrite($fp,date('Y年m月d日 H時i分s秒').PHP_EOL);
+    flock($fp,LOCK_UN);
+    fclose($fp);
+
+
+    ?>
+
+    <?php
+
+    //表示機能開始
+    $ret_array=file($filename);
+    //テキストファイルを読み込み
+    for($i=0;$i<count($ret_array);$i++);
+    //ループ処理
+    $ex=explode("<>",$ret_array[$i]);
+    echo $ex[0].$ex[1].$ex[2].$ex[3]."<br>";
+    //表示機能終わり
+?>
+
+<?php
+// 【サンプル】
+	// ・データベース名：******
+	// ・ユーザー名：*********
+    // ・パスワード:***********
+	// の学生の場合：
+
+	// DB接続設定
+	$dsn = 'データベース名';
+	$user = 'ユーザー名';
+	$password = 'パスワード';
+    $pdo = new PDO($dsn, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
+    // 【！この SQLは tbtest テーブルを削除します！】
+		$sql = 'DROP TABLE tbtest';
+        $stmt = $pdo->query($sql);
+?>
+
+
+</flom>
+</body>
+</html>
